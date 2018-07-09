@@ -1,8 +1,8 @@
 package de.neosearch.analyzer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ class SimpleTokenizerTest {
 	@Test
 	void test() {
 		SimpleTokenizer tokenizer = new SimpleTokenizer();
-		LinkedList<Token> tokens = tokenizer.tokenize("Test,  test 2");
+		List<Token> tokens = tokenizer.tokenize("Test,  test 2");
 		assertEquals(new Token(0, 4, "Test", "test", SimpleTokenizer.TEXT_TOKENTYPE), tokens.get(0));
 		assertEquals(new Token(4, 5, ",", ",", SimpleTokenizer.SPECIALCHARS_TOKENTYPE), tokens.get(1));
 		assertEquals(new Token(5, 7, "  ", "  ", SimpleTokenizer.WHITESPACE_TOKENTYPE), tokens.get(2));
