@@ -1,5 +1,6 @@
 package de.neosearch.analyzer;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,37 +9,9 @@ public class SimpleTokenizer {
 	static final String TEXT_TOKENTYPE = "text";
 	static final String WHITESPACE_TOKENTYPE = "whitespace";
 
-	@Override
-	public String toString() {
-		return "AnalyzedText=" + tokens;
-	}
-
-	private LinkedList<Token> tokens = new LinkedList<>();
-
-//	public SimpleTokenizer(List<Token> tokenList) {
-//		Collections.sort(tokenList);
-//		this.tokens = new LinkedList<>(tokenList);
-//	}
-
-	public void remove(int begin, int end) {
-		tokens.removeIf(t -> t.getBegin() >= begin && t.getEnd() <= end);
-	}
-
-	public LinkedList<Token> getTokens() {
-		return tokens;
-	}
-
-	public int getSize() {
-		return tokens.size();
-	}
-
-	public TokenWindow tokenWindow(int begin, int size) {
-		return new TokenWindow(tokens.subList(begin, begin + size));
-	}
-
-	public LinkedList<Token> tokenize(String text) {
+	public List<Token> tokenize(String text) {
 		if (text == null)
-			return new LinkedList<>();
+			return new ArrayList<>();
 
 		LinkedList<Token> result = new LinkedList<>();
 		String actualString = "";
