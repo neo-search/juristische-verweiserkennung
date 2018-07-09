@@ -18,7 +18,6 @@ class SimpleTokenizerTest {
 		assertEquals(new Token(7, 11, "test", "test", SimpleTokenizer.TEXT_TOKENTYPE), tokens.get(3));
 		assertEquals(new Token(11, 12, " ", " ", SimpleTokenizer.WHITESPACE_TOKENTYPE), tokens.get(4));
 		assertEquals(new Token(12, 13, "2", "2", SimpleTokenizer.TEXT_TOKENTYPE), tokens.get(5));
-		System.out.println(tokens);
 	}
 
 }
