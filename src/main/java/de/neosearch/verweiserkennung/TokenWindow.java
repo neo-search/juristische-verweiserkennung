@@ -1,7 +1,9 @@
-package de.neosearch.analyzer;
+package de.neosearch.verweiserkennung;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import de.neosearch.verweiserkennung.tokenizer.Token;
 
 public class TokenWindow extends Token {
 	public TokenWindow(List<Token> tokens) {

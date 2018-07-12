@@ -1,4 +1,4 @@
-package de.neosearch.analyzer;
+package de.neosearch.verweiserkennung;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,6 +8,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+
+import de.neosearch.verweiserkennung.tokenizer.Token;
 
 public class TextAnalyzer {
 

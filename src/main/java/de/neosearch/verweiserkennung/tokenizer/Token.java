@@ -1,4 +1,4 @@
-package de.neosearch.analyzer;
+package de.neosearch.verweiserkennung.tokenizer;
 
 public class Token implements Comparable<Token> {
 	private int begin = 0;
@@ -67,8 +67,8 @@ public class Token implements Comparable<Token> {
 
 	@Override
 	public String toString() {
-		if (tokenType.equals(AnalyzedText.WHITESPACE_TOKENTYPE))
-			return "'\\w'-> (" + begin + ", " + end + ", " + tokenType + ")";
+//		if (tokenType.equals(AnalyzedText.WHITESPACE_TOKENTYPE))
+//			return "'\\w'-> (" + begin + ", " + end + ", " + tokenType + ")";
 		return "'" + string + "'->'" + normalizedString + "' (" + begin + ", " + end + ", " + tokenType + ")";
 	}
 

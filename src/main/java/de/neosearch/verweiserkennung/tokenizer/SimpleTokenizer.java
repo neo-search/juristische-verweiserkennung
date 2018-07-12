@@ -1,61 +1,17 @@
-package de.neosearch.analyzer;
+package de.neosearch.verweiserkennung.tokenizer;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-public class AnalyzedText {
+public class SimpleTokenizer {
 	static final String SPECIALCHARS_TOKENTYPE = "specialchars";
 	static final String TEXT_TOKENTYPE = "text";
 	static final String WHITESPACE_TOKENTYPE = "whitespace";
 
-	@Override
-	public String toString() {
-		return "AnalyzedText=" + tokens;
-	}
-
-	private LinkedList<Token> tokens = new LinkedList<>();
-
-	public AnalyzedText(String text) {
-		tokens = tokenize(text);
-	}
-
-	public AnalyzedText(List<Token> tokenList) {
-		Collections.sort(tokenList);
-		this.tokens = new LinkedList<>(tokenList);
-	}
-
-	public void remove(int begin, int end) {
-		tokens.removeIf(t -> t.getBegin() >= begin && t.getEnd() <= end);
-	}
-
-	public LinkedList<Token> getTokens() {
-		return tokens;
-	}
-
-//	public boolean hasOnlyType(TokenType tokenType) {
-//		return tokens.size() == 1 && tokens.get(0).getTokenType() == tokenType;
-//	}
-//
-//	public boolean hasAtLeastOnceType(TokenType tokenType) {
-//		return tokens.stream().anyMatch(t -> t.getTokenType() == tokenType);
-//		// return tokens.size() == 1 && tokens.get(0).getTokenType() ==
-//		// tokenType;
-//	}
-
-	public int getSize() {
-		return tokens.size();
-	}
-
-	public TokenWindow tokenWindow(int begin, int size) {
-		return new TokenWindow(tokens.subList(begin, begin + size));
-	}
-
-	private static LinkedList<Token> tokenize(String text) {
+	public List<Token> tokenize(String text) {
 		if (text == null)
-			return new LinkedList<>();
+			return new ArrayList<>();
 
 		LinkedList<Token> result = new LinkedList<>();
 		String actualString = "";
@@ -65,12 +21,10 @@ public class AnalyzedText {
 			char c = text.charAt(i);
 			if (typeOfLastChar == null) {
 				actualString = Character.toString(c);
-				typeOfLastChar = Character.isWhitespace(c) ? WHITESPACE_TOKENTYPE
-						: (Character.isLetterOrDigit(c) || c == '§' || c == '/') ? TEXT_TOKENTYPE
-								: SPECIALCHARS_TOKENTYPE;
+				typeOfLastChar = isWhitespace(c) ? WHITESPACE_TOKENTYPE
+						: isTokenChar(c) ? TEXT_TOKENTYPE : SPECIALCHARS_TOKENTYPE;
 
-			}
-			if (Character.isWhitespace(c)) {
+			} else if (isWhitespace(c)) {
 				if (!typeOfLastChar.equals(WHITESPACE_TOKENTYPE)) {
 					int beginOfWord = i - actualString.length();
 					result.add(new Token(beginOfWord, i, actualString, actualString.toLowerCase(), typeOfLastChar));
@@ -111,20 +65,19 @@ public class AnalyzedText {
 		return result;
 	}
 
-	public List<Token> getTokens(String tokenType) {
-		return tokens.stream().filter(t -> t.getTokenType().equals(tokenType)).collect(Collectors.toList());
+	private boolean isWhitespace(char c) {
+		return Character.isWhitespace(c);
 	}
 
-	public Optional<Token> getFirstToken(String tokenType) {
-		return getTokens(tokenType).stream().findFirst();
+	private boolean isTokenChar(char c) {
+		return Character.isLetterOrDigit(c) || c == '§' || c == '/';
 	}
 
 	public static void main(String[] args) {
-
-		// 170ms im Durchschnitt
 		long currentTimeMillis = System.currentTimeMillis();
-		AnalyzedText analyzedText = new AnalyzedText(
-				"1. Art. 2 Buchst. d der Richtlinie 95/46/EG des Europäischen Parlaments.");
+		// 170ms im Durchschnitt
+		List<Token> tokens = new SimpleTokenizer()
+				.tokenize("1. Art. 2 Buchst. d der Richtlinie 95/46/EG des Europäischen Parlaments.");
 
 //		System.out.println(analyzedText);
 		System.out.println(System.currentTimeMillis() - currentTimeMillis);

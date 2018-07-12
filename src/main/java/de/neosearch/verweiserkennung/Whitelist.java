@@ -1,4 +1,4 @@
-package de.neosearch.analyzer;
+package de.neosearch.verweiserkennung;
 
 import java.util.HashMap;
 import java.util.Map;
