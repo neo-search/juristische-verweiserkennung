@@ -1,4 +1,4 @@
-package de.neosearch.verweiserkennung;
+package de.neosearch.verweiserkennung.tokenfilter;
 
 import java.util.HashMap;
 import java.util.Map;

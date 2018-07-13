@@ -1,9 +1,9 @@
-package de.neosearch.verweiserkennung;
+package de.neosearch.verweiserkennung.tokenfilter;
 
 public class WhitelistEntry {
 
-	private String tokenType;
 	private String value;
+	private String tokenType;
 
 	public WhitelistEntry(String tokenType, String value) {
 		this.tokenType = tokenType;
@@ -12,6 +12,10 @@ public class WhitelistEntry {
 
 	public String getTokenType() {
 		return tokenType;
+	}
+
+	public String getValue() {
+		return value;
 	}
 
 	@Override
@@ -42,7 +46,4 @@ public class WhitelistEntry {
 		return true;
 	}
 
-	public String getValue() {
-		return value;
-	}
 }

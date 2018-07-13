@@ -1,5 +1,7 @@
 package de.neosearch.verweiserkennung.tokenizer;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,13 +29,41 @@ class SimpleTokenizerTest {
 	@Test
 	void testShingle() {
 		SimpleTokenizer tokenizer = new SimpleTokenizer();
-		List<Token> tokens = tokenizer.tokenize("Test,  test 2");
-		ShingleTokenizer shingleTokenizer = new ShingleTokenizer(tokens, 4);
+		List<Token> tokens = tokenizer.tokenize("Test ta,");
+		ShingleTokenizer shingleTokenizer = new ShingleTokenizer(tokens, 2);
 
 		assertTrue(shingleTokenizer.hasMoreShingles());
 		Shingle shingle = shingleTokenizer.moreShingle();
 		assertTrue(shingle.hasMoreToken());
-		assertEquals(shingle.moreToken(), new Token(0, 11, "Test,  test ", "test,  test "));
+		assertEquals(shingle.moreToken(), new Token(0, 5, "Test ", "test "));
+		assertFalse(shingle.hasMoreToken());
+		assertEquals(shingle.moreToken(), null);
+		assertEquals(shingle.getUniGram(), new Token(0, 4, "Test", "test"));
+
+		assertTrue(shingleTokenizer.hasMoreShingles());
+		shingle = shingleTokenizer.moreShingle();
+		assertTrue(shingle.hasMoreToken());
+		assertEquals(shingle.moreToken(), new Token(4, 7, " ta", " ta"));
+		assertFalse(shingle.hasMoreToken());
+		assertEquals(shingle.moreToken(), null);
+		assertEquals(shingle.getUniGram(), new Token(4, 5, " ", ",  "));
+
+		assertTrue(shingleTokenizer.hasMoreShingles());
+		shingle = shingleTokenizer.moreShingle();
+		assertTrue(shingle.hasMoreToken());
+		assertEquals(shingle.moreToken(), new Token(5, 8, "ta,", "ta,"));
+		assertFalse(shingle.hasMoreToken());
+		assertEquals(shingle.moreToken(), null);
+		assertEquals(shingle.getUniGram(), new Token(5, 7, "ta", "ta"));
+
+		assertTrue(shingleTokenizer.hasMoreShingles());
+		shingle = shingleTokenizer.moreShingle();
+		assertFalse(shingle.hasMoreToken());
+		assertEquals(shingle.getUniGram(), new Token(7, 8, ",", ","));
+
+		assertFalse(shingleTokenizer.hasMoreShingles());
+		assertNull(shingleTokenizer.moreShingle());
+
 	}
 
 }
