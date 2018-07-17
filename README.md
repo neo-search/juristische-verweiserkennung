@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/neo-search/juristische-verweiserkennung.svg?branch=master)](https://travis-ci.org/neo-search/juristische-verweiserkennung)
+[![Build Status](https://travis-ci.com/neo-search/juristische-verweiserkennung.svg?branch=master)](https://travis-ci.com/neo-search/juristische-verweiserkennung)
 
 # juritische-verweiserkennung
 Die juristische Verweiserkennung erkennt Querverweise zu Rechtsprechung-Dokumente und Gesetze und verlinkt diese.
