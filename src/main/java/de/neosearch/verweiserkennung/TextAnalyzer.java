@@ -12,7 +12,7 @@ import de.neosearch.verweiserkennung.tokenizer.Token;
 
 public class TextAnalyzer {
 
-//	private Whitelist whiteList = new Whitelist();
+	// private Whitelist whiteList = new Whitelist();
 
 	public static class TextAnalyzerBuilder {
 
@@ -47,12 +47,11 @@ public class TextAnalyzer {
 		return new TextAnalyzerBuilder(maxWindowSize);
 	}
 
-	public AnalyzedText analyze(String query) {
-		AnalyzedText analyze = analyze(query, maxWindowSize);
-		return analyze;
+	public List<Token> analyze(String query) {
+		return analyze(query, maxWindowSize);
 	}
 
-	private AnalyzedText analyze(String text, int windowSize) {
+	private List<Token> analyze(String text, int windowSize) {
 
 		List<Token> tokens = new SimpleTokenizer().tokenize(text);
 		ShingleTokenizer shingleTokenizer = new ShingleTokenizer(tokens, windowSize);
@@ -68,8 +67,12 @@ public class TextAnalyzer {
 					if ((filteredToken = filter.accept(token)) != null) {
 						result.add(filteredToken);
 						foundToken = true;
+						shingleTokenizer.skipTo(filteredToken.getEnd());
+						break;
 					}
 				}
+				if (foundToken == true)
+					break;
 			}
 
 			if (foundToken == false) {
@@ -79,52 +82,42 @@ public class TextAnalyzer {
 					if ((filteredToken = filter.accept(token)) != null) {
 						result.add(filteredToken);
 						foundToken = true;
-					} else
-						result.add(token);
-
+					}
 				}
 			}
 
-		}
-		return
+			if (foundToken == false)
+				result.add(moreShingle.getUniGram());
 
-		analyze(text, windowSize);
+		}
+		return result;
 	}
 
-//	private Optional<WhitelistEntry> analyzeToken(Token token) {
-//		String cleanedToken = removeAnchorInformation(token.getNormalizedString());
-//
-//		Optional<WhitelistEntry> optionalWhitelistEntry = whiteList.get(cleanedToken);
-//
-//		if (optionalWhitelistEntry.isPresent())
-//			return optionalWhitelistEntry;
-//
-//		return Optional.empty();
-//	}
-//
-//	public static String removeAnchorInformation(String normAbkuerzung) {
-//		return normAbkuerzung //
-//				.replaceAll(" abs\\. \\d+", "")//
-//				.replaceAll(" satz \\d+", "")//
-//				.replaceAll(" s \\d+", "")//
-//				.replaceAll(" nr \\d+", "")//
-//				.replaceAll(" nr\\. \\d+", "")//
-//				.replaceAll(" alt \\d+", "")//
-//				.replaceAll(" buchst \\w", "")//
-//				.replaceAll(" vom \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", "");
-//	}
+	// private Optional<WhitelistEntry> analyzeToken(Token token) {
+	// String cleanedToken = removeAnchorInformation(token.getNormalizedString());
+	//
+	// Optional<WhitelistEntry> optionalWhitelistEntry =
+	// whiteList.get(cleanedToken);
+	//
+	// if (optionalWhitelistEntry.isPresent())
+	// return optionalWhitelistEntry;
+	//
+	// return Optional.empty();
+	// }
+	//
+	// public static String removeAnchorInformation(String normAbkuerzung) {
+	// return normAbkuerzung //
+	// .replaceAll(" abs\\. \\d+", "")//
+	// .replaceAll(" satz \\d+", "")//
+	// .replaceAll(" s \\d+", "")//
+	// .replaceAll(" nr \\d+", "")//
+	// .replaceAll(" nr\\. \\d+", "")//
+	// .replaceAll(" alt \\d+", "")//
+	// .replaceAll(" buchst \\w", "")//
+	// .replaceAll(" vom \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", "");
+	// }
 
 	public static void main(String[] args) throws IOException {
-//		TextAnalyzer an = new TextAnalyzer();
-		// an.addNormToWhitelist("BGB", "/gesetze/bgb");
-//		an.addSectionToWhitelist("BGB", "§ 3", "", "/gesetze/bgb/3");
-		// an.readInWhitelists();
-		// an.analyzeToken(token)
-		// Text analyze = an.analyze("Hello BGB §3 ii und so BGB ZPO id neu BGB
-		// §15 ZPO.");
-//		AnalyzedText analyze = an.analyze("BGB Mensch");
-
-//		System.out.println(analyze);
 	}
 
 }

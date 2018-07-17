@@ -18,16 +18,19 @@ import de.neosearch.verweiserkennung.tokenizer.Token;
 
 class TextAnalyzerTest {
 
-	@Test
-	void testTextAnaly() {
-		LowercaseWhitelistFilter lowerFilter = new LowercaseWhitelistFilter("testToken", Arrays.asList("Test A"),
-				Arrays.asList("/test"));
-		LowercaseWhitelistFilter sectionFilter = new LowercaseWhitelistFilter("sectionToken", Arrays.asList("BGB §A"),
-				Arrays.asList("/bgb/a"));
-		TextAnalyzer textAnalyzer = TextAnalyzer.createTextAnalyzer(3).add(lowerFilter).add(sectionFilter).build();
+	private LowercaseWhitelistFilter lowerFilter = new LowercaseWhitelistFilter("testToken", Arrays.asList("Test A"),
+			Arrays.asList("/test"));;
+	private LowercaseWhitelistFilter sectionFilter = new LowercaseWhitelistFilter("sectionToken",
+			Arrays.asList("BGB §A"), Arrays.asList("/bgb/a"));
+	private TextAnalyzer textAnalyzer = TextAnalyzer.createTextAnalyzer(3).add(lowerFilter).add(sectionFilter).build();
 
-		AnalyzedText analyzedText = textAnalyzer.analyze("Test A a");
-		System.out.println(analyzedText);
+	@Test
+	void testTextAnalyse() {
+		List<Token> tokens = textAnalyzer.analyze("Test a a");
+		assertEquals(new Token(0, 6, "Test a", "/test", "testToken"), tokens.get(0));
+		assertEquals(new Token(6, 7, " ", " ", "whitespace"), tokens.get(1), "whitespace");
+		assertEquals(new Token(7, 8, "a", "a", "text"), tokens.get(2), "character");
+		System.out.println(tokens);
 	}
 
 }

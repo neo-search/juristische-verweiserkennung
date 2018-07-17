@@ -69,7 +69,7 @@ public class Token implements Comparable<Token> {
 	public String toString() {
 //		if (tokenType.equals(AnalyzedText.WHITESPACE_TOKENTYPE))
 //			return "'\\w'-> (" + begin + ", " + end + ", " + tokenType + ")";
-		return "'" + string + "'->'" + normalizedString + "' (" + begin + ", " + end + ", " + tokenType + ")";
+		return  "'" + string + ":" + normalizedString + "' (" + begin + ", " + end + ", " + tokenType + ")";
 	}
 
 	@Override

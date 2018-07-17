@@ -21,9 +21,19 @@ public class ShingleTokenizer {
 		if (index >= tokens.size())
 			return null;
 
-		Shingle shingle = new Shingle(tokens.subList(index, Math.min(index + maxShingleSize, tokens.size())));
+		Shingle shingle = nextShingle();
 		index++;
 		return shingle;
 	}
 
+	private Shingle nextShingle() {
+		Shingle shingle = new Shingle(tokens.subList(index, Math.min(index + maxShingleSize, tokens.size())));
+		return shingle;
+	}
+
+	public void skipTo(int end) {
+		while (nextShingle().moreToken().getBegin() < end) {
+			index++;
+		}
+	}
 }
