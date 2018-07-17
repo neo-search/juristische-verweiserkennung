@@ -9,6 +9,6 @@ Die Software ist unter der MIT-Lizenz und kann somit auch in kommerziellen Syste
 
 # Verwendung als Rest-Service
 
-## Direkte Nutzung der Rest-Schnittstelle von kommtnoch.de
+## Direkte Nutzung der Rest-Schnittstelle (Webseite)
 ## Durch lokales starten des docker-image
 ## Einbindung der Java-Library
