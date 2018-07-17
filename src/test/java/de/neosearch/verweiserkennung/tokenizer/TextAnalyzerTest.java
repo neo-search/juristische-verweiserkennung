@@ -1,8 +1,5 @@
 package de.neosearch.verweiserkennung.tokenizer;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
@@ -10,11 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import de.neosearch.verweiserkennung.AnalyzedText;
 import de.neosearch.verweiserkennung.TextAnalyzer;
 import de.neosearch.verweiserkennung.tokenfilter.LowercaseWhitelistFilter;
-import de.neosearch.verweiserkennung.tokenizer.SimpleTokenizer;
-import de.neosearch.verweiserkennung.tokenizer.Token;
 
 class TextAnalyzerTest {
 
