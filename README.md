@@ -1,7 +1,7 @@
 # juritische-verweiserkennung
-Die juristische automatische Verweiserkennung und Verlinkung erkennt Querverweise zu Rechtsprechung-Dokumente und Gesetze.
+Die juristische Verweiserkennung erkennt Querverweise zu Rechtsprechung-Dokumente und Gesetze und verlinkt diese.
 
-Die Software ist unter der MIT-Lizenz und kann somit auch in kommerzielle Systeme integriert werden.
+Die Software ist unter der MIT-Lizenz und kann somit auch in kommerziellen Systeme integriert werden.
 
 
 # Einbindung als Library
