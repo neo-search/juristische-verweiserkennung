@@ -3,19 +3,16 @@ package de.neosearch.verweiserkennung.tokenizer;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import de.neosearch.verweiserkennung.tokenizer.SimpleTokenizer;
-import de.neosearch.verweiserkennung.tokenizer.Token;
-
-class SimpleTokenizerTest {
+public class SimpleTokenizerTest {
 
 	@Test
-	void testTokenizer() {
+	public void testTokenizer() {
 		SimpleTokenizer tokenizer = new SimpleTokenizer();
 		List<Token> tokens = tokenizer.tokenize("Test,  test 2");
 		assertEquals(new Token(0, 4, "Test", "test", SimpleTokenizer.TEXT_TOKENTYPE), tokens.get(0));
@@ -27,7 +24,7 @@ class SimpleTokenizerTest {
 	}
 
 	@Test
-	void testShingle() {
+	public void testShingle() {
 		SimpleTokenizer tokenizer = new SimpleTokenizer();
 		List<Token> tokens = tokenizer.tokenize("Test ta,");
 		ShingleTokenizer shingleTokenizer = new ShingleTokenizer(tokens, 2);
