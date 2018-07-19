@@ -47,11 +47,11 @@ public class TextAnalyzer {
 		return new TextAnalyzerBuilder(maxWindowSize);
 	}
 
-	public List<Token> analyze(String query) {
+	public AnalyzedText analyze(String query) {
 		return analyze(query, maxWindowSize);
 	}
 
-	private List<Token> analyze(String text, int windowSize) {
+	private AnalyzedText analyze(String text, int windowSize) {
 
 		List<Token> tokens = new SimpleTokenizer().tokenize(text);
 		ShingleTokenizer shingleTokenizer = new ShingleTokenizer(tokens, windowSize);
@@ -90,7 +90,7 @@ public class TextAnalyzer {
 				result.add(moreShingle.getUniGram());
 
 		}
-		return result;
+		return new AnalyzedText(result);
 	}
 
 	// private Optional<WhitelistEntry> analyzeToken(Token token) {

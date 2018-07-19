@@ -23,7 +23,7 @@ public class TextAnalyzerTest {
 
 	@Test
 	public void testTextAnalyse() {
-		List<Token> tokens = textAnalyzer.analyze("Test a a");
+		List<Token> tokens = textAnalyzer.analyze("Test a a").getTokens();
 		assertEquals(new Token(0, 6, "Test a", "/test", "testToken"), tokens.get(0));
 		assertEquals(new Token(6, 7, " ", " ", "whitespace"), tokens.get(1));
 		assertEquals(new Token(7, 8, "a", "a", "text"), tokens.get(2));

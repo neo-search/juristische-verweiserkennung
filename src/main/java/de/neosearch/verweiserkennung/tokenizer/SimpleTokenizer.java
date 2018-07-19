@@ -3,11 +3,9 @@ package de.neosearch.verweiserkennung.tokenizer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import static de.neosearch.verweiserkennung.tokenizer.TokenTypes.*;
 
 public class SimpleTokenizer {
-	static final String SPECIALCHARS_TOKENTYPE = "specialchars";
-	static final String TEXT_TOKENTYPE = "text";
-	static final String WHITESPACE_TOKENTYPE = "whitespace";
 
 	public List<Token> tokenize(String text) {
 		if (text == null)
@@ -21,37 +19,37 @@ public class SimpleTokenizer {
 			char c = text.charAt(i);
 			if (typeOfLastChar == null) {
 				actualString = Character.toString(c);
-				typeOfLastChar = isWhitespace(c) ? WHITESPACE_TOKENTYPE
-						: isTokenChar(c) ? TEXT_TOKENTYPE : SPECIALCHARS_TOKENTYPE;
+				typeOfLastChar = isWhitespace(c) ? WHITESPACE
+						: isTokenChar(c) ? TEXT : SPECIALCHARS;
 
 			} else if (isWhitespace(c)) {
-				if (!typeOfLastChar.equals(WHITESPACE_TOKENTYPE)) {
+				if (!typeOfLastChar.equals(WHITESPACE)) {
 					int beginOfWord = i - actualString.length();
 					result.add(new Token(beginOfWord, i, actualString, actualString.toLowerCase(), typeOfLastChar));
-					typeOfLastChar = WHITESPACE_TOKENTYPE;
+					typeOfLastChar = WHITESPACE;
 					actualString = Character.toString(c);
 				} else {
-					typeOfLastChar = WHITESPACE_TOKENTYPE;
+					typeOfLastChar = WHITESPACE;
 					actualString += c;
 				}
 			} else if (Character.isLetterOrDigit(c) || c == '§' || c == '/') {
-				if (!typeOfLastChar.equals(TEXT_TOKENTYPE)) {
+				if (!typeOfLastChar.equals(TEXT)) {
 					int beginOfWord = i - actualString.length();
 					result.add(new Token(beginOfWord, i, actualString, actualString.toLowerCase(), typeOfLastChar));
-					typeOfLastChar = TEXT_TOKENTYPE;
+					typeOfLastChar = TEXT;
 					actualString = Character.toString(c);
 				} else {
-					typeOfLastChar = TEXT_TOKENTYPE;
+					typeOfLastChar = TEXT;
 					actualString += c;
 				}
 			} else {
-				if (!typeOfLastChar.equals(SPECIALCHARS_TOKENTYPE)) {
+				if (!typeOfLastChar.equals(SPECIALCHARS)) {
 					int beginOfWord = i - actualString.length();
 					result.add(new Token(beginOfWord, i, actualString, actualString.toLowerCase(), typeOfLastChar));
-					typeOfLastChar = SPECIALCHARS_TOKENTYPE;
+					typeOfLastChar = SPECIALCHARS;
 					actualString = Character.toString(c);
 				} else {
-					typeOfLastChar = SPECIALCHARS_TOKENTYPE;
+					typeOfLastChar = SPECIALCHARS;
 					actualString += c;
 				}
 			}
