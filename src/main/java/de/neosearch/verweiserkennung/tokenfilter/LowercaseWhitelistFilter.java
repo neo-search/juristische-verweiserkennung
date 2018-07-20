@@ -9,10 +9,8 @@ import de.neosearch.verweiserkennung.tokenizer.Token;
 
 public class LowercaseWhitelistFilter extends WhitelistFilter {
 
-	private String tokenType;
-
 	public LowercaseWhitelistFilter(String tokenType, List<String> token, List<String> normalizedToken) {
-		this.tokenType = tokenType;
+		super(tokenType);
 		List<String> lowercasetokens = token.stream().map(String::toLowerCase).collect(Collectors.toList());
 		List<String> lowercasenormalizedTokens = normalizedToken.stream().map(String::toLowerCase)
 				.collect(Collectors.toList());
@@ -23,10 +21,22 @@ public class LowercaseWhitelistFilter extends WhitelistFilter {
 	}
 
 	public LowercaseWhitelistFilter(String tokenType, Map<String, String> tokenNormalizedToken) {
-		this.tokenType = tokenType;
+		super(tokenType);
 		for (Entry<String, String> e : tokenNormalizedToken.entrySet())
 			addToWhitelist(e.getKey().toLowerCase(), e.getValue().toLowerCase());
 
+	}
+
+	protected void addToWhitelist(String key, String value) {
+		super.addToWhitelist(key.toLowerCase(), value.toLowerCase());
+	}
+
+	protected boolean whitelistContains(String token) {
+		return super.whitelistContains(token.toLowerCase());
+	}
+
+	protected String getNormalized(String token) {
+		return super.getNormalized(token.toLowerCase());
 	}
 
 	public Token accept(Token token) {

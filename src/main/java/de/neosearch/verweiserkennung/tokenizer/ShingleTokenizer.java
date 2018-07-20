@@ -32,7 +32,12 @@ public class ShingleTokenizer {
 	}
 
 	public void skipTo(int end) {
-		while (nextShingle().moreToken().getBegin() < end) {
+		while (true) {
+			Shingle nextShingle = nextShingle();
+			if (!nextShingle.hasMoreToken())
+				break;
+			if (nextShingle.moreToken().getBegin() >= end)
+				break;
 			index++;
 		}
 	}

@@ -32,16 +32,8 @@ public class Token implements Comparable<Token> {
 		return begin;
 	}
 
-	public void setBegin(int begin) {
-		this.begin = begin;
-	}
-
 	public int getEnd() {
 		return end;
-	}
-
-	public void setEnd(int end) {
-		this.end = end;
 	}
 
 	public String getString() {
@@ -52,24 +44,20 @@ public class Token implements Comparable<Token> {
 		return normalizedString;
 	}
 
-	public void setString(String string) {
-		this.string = string;
-		this.normalizedString = string.toLowerCase();
-	}
-
 	public String getTokenType() {
 		return tokenType;
 	}
 
-	public void setTokenType(String tokenType) {
+	public Token withTokenType(String tokenType) {
 		this.tokenType = tokenType;
+		return this;
 	}
 
 	@Override
 	public String toString() {
 //		if (tokenType.equals(AnalyzedText.WHITESPACE_TOKENTYPE))
 //			return "'\\w'-> (" + begin + ", " + end + ", " + tokenType + ")";
-		return  "'" + string + ":" + normalizedString + "' (" + begin + ", " + end + ", " + tokenType + ")";
+		return "'" + string + ":" + normalizedString + "' (" + begin + ", " + end + ", " + tokenType + ")";
 	}
 
 	@Override
