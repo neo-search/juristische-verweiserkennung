@@ -53,10 +53,13 @@ public class Token implements Comparable<Token> {
 		return this;
 	}
 
+	public Token withNormalizedString(String normalizedString) {
+		this.normalizedString = normalizedString;
+		return this;
+	}
+
 	@Override
 	public String toString() {
-//		if (tokenType.equals(AnalyzedText.WHITESPACE_TOKENTYPE))
-//			return "'\\w'-> (" + begin + ", " + end + ", " + tokenType + ")";
 		return "'" + string + ":" + normalizedString + "' (" + begin + ", " + end + ", " + tokenType + ")";
 	}
 

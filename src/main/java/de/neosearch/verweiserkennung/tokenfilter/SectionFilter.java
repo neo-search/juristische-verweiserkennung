@@ -18,7 +18,8 @@ public abstract class SectionFilter extends LowercaseWhitelistFilter {
 	public Token accept(Token token) {
 		String tokenString = removeAnchorInformation(token.getNormalizedString());
 		if (whitelistContains(tokenString))
-			return token.withTokenType(this.tokenType);
+			return new Token(token.getBegin(), token.getEnd(), token.getString(), getNormalized(tokenString),
+					this.tokenType);
 		return null;
 	};
 

@@ -34,8 +34,11 @@ public class ShingleTokenizer {
 	public void skipTo(int end) {
 		while (true) {
 			Shingle nextShingle = nextShingle();
-			if (!nextShingle.hasMoreToken())
+			if (!nextShingle.hasMoreToken()) {
+				if (nextShingle.getUniGram().getBegin() < end)
+					index++;
 				break;
+			}
 			if (nextShingle.moreToken().getBegin() >= end)
 				break;
 			index++;
