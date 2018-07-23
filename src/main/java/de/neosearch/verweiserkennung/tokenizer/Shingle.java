@@ -18,7 +18,6 @@ public class Shingle {
 	}
 
 	public Token moreToken() {
-
 		if (index <= 1)
 			return null;
 		int begin = tokens.get(0).getBegin();
@@ -29,7 +28,7 @@ public class Shingle {
 		String normalizedString = "";
 		for (Token token : subList) {
 			string += token.getString();
-			normalizedString = token.getNormalizedString();
+			normalizedString += token.getNormalizedString();
 		}
 
 		index--;
