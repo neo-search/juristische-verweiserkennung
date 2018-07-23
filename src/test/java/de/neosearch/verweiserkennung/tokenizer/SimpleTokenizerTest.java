@@ -31,31 +31,31 @@ public class SimpleTokenizerTest {
 
 		assertTrue(shingleTokenizer.hasMoreShingles());
 		Shingle shingle = shingleTokenizer.moreShingle();
-		assertTrue(shingle.hasMoreToken());
+		assertTrue(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), new Token(0, 5, "Test ", "test "));
-		assertFalse(shingle.hasMoreToken());
+		assertFalse(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), null);
 		assertEquals(shingle.getUniGram(), new Token(0, 4, "Test", "test"));
 
 		assertTrue(shingleTokenizer.hasMoreShingles());
 		shingle = shingleTokenizer.moreShingle();
-		assertTrue(shingle.hasMoreToken());
+		assertTrue(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), new Token(4, 7, " ta", " ta"));
-		assertFalse(shingle.hasMoreToken());
+		assertFalse(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), null);
 		assertEquals(shingle.getUniGram(), new Token(4, 5, " ", ",  "));
 
 		assertTrue(shingleTokenizer.hasMoreShingles());
 		shingle = shingleTokenizer.moreShingle();
-		assertTrue(shingle.hasMoreToken());
+		assertTrue(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), new Token(5, 8, "ta,", "ta,"));
-		assertFalse(shingle.hasMoreToken());
+		assertFalse(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), null);
 		assertEquals(shingle.getUniGram(), new Token(5, 7, "ta", "ta"));
 
 		assertTrue(shingleTokenizer.hasMoreShingles());
 		shingle = shingleTokenizer.moreShingle();
-		assertFalse(shingle.hasMoreToken());
+		assertFalse(shingle.hasMoreTokens());
 		assertEquals(shingle.getUniGram(), new Token(7, 8, ",", ","));
 
 		assertFalse(shingleTokenizer.hasMoreShingles());

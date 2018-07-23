@@ -60,7 +60,7 @@ public class TextAnalyzer {
 			Shingle moreShingle = shingleTokenizer.moreShingle();
 
 			boolean foundToken = false;
-			while (moreShingle.hasMoreToken()) {
+			while (moreShingle.hasMoreTokens()) {
 				Token token = moreShingle.moreToken();
 				for (WhitelistFilter filter : whitelistFilters) {
 					Token filteredToken;

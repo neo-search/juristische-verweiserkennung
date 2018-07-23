@@ -1,18 +1,31 @@
 package de.neosearch.verweiserkennung.tokenfilter;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import de.neosearch.verweiserkennung.tokenizer.Token;
 
 public abstract class SectionFilter extends LowercaseWhitelistFilter {
+//	private static final String CLEAN_SECTIONS = "( abs\\. \\d+"//
+//			+ "\\| satz \\d+" //
+//			+ "\\| s \\d+"//
+//			+ "\\| nr \\d+" //
+//			+ "\\| nr\\. \\d+"//
+//			+ "\\| alt \\d+" //
+//			+ "\\|  buchst \\w" //
+//			+ "|  vom \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d)";
+	private static final Pattern CLEAN_SECTIONS = Pattern.compile("( abs\\. \\d+"//
+			+ "| nr. \\d+" //	
+			+ "| satz \\d+" //
+			+ "| s \\d+"//
+			+ "| nr \\d+" //
+			+ "| alt \\d+" //
+			+ "| buchst \\w" //
+			+ "| vom \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d" //
+			+ ")");
 
 	public SectionFilter(String tokenType, List<String> token, List<String> normalizedToken) {
 		super(tokenType, token, normalizedToken);
-//		List<String> lowercasetokens = token.stream().map(String::toLowerCase).collect(Collectors.toList());
-//		List<String> lowercasenormalizedTokens = token.stream().map(String::toLowerCase).collect(Collectors.toList());
-//
-//		for (int i = 0; i < lowercasetokens.size(); i++)
-//			addToWhitelist(lowercasetokens.get(i), lowercasenormalizedTokens.get(i));
 	}
 
 	public Token accept(Token token) {
@@ -24,14 +37,26 @@ public abstract class SectionFilter extends LowercaseWhitelistFilter {
 	};
 
 	public static String removeAnchorInformation(String normAbkuerzung) {
-		return normAbkuerzung //
-				.replaceAll(" abs\\. \\d+", "")//
-				.replaceAll(" satz \\d+", "")//
-				.replaceAll(" s \\d+", "")//
-				.replaceAll(" nr \\d+", "")//
-				.replaceAll(" nr\\. \\d+", "")//
-				.replaceAll(" alt \\d+", "")//
-				.replaceAll(" buchst \\w", "")//
-				.replaceAll(" vom \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", "");
+//		if (normAbkuerzung.contains("§ 547") && normAbkuerzung.contains("zpo"))
+//			System.out.println("GO2");
+//		if (normAbkuerzung.equalsIgnoreCase("§ 547 Nr. 4 ZPO"))
+//			System.out.println("GO!" + normAbkuerzung);
+		return CLEAN_SECTIONS.matcher(normAbkuerzung).replaceAll("");
+//		return normAbkuerzung //
+//				.replaceAll(" abs\\. \\d+", "")//
+//				.replaceAll(" satz \\d+", "")//
+//				.replaceAll(" s \\d+", "")//
+//				.replaceAll(" nr \\d+", "")//
+//				.replaceAll(" nr\\. \\d+", "")//
+//				.replaceAll(" alt \\d+", "")//
+//				.replaceAll(" buchst \\w", "")//
+//				.replaceAll(" vom \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", "");
+	}
+
+	public static void main(String[] args) {
+		String trs = "entsprechender anwendung von § 547 nr. 4 zpo";
+
+//		String replaceAll = trs.replaceAll(CLEAN_SECTIONS, "");
+//		System.out.println(replaceAll);
 	}
 }

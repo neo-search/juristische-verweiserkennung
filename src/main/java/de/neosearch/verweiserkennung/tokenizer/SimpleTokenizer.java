@@ -1,9 +1,11 @@
 package de.neosearch.verweiserkennung.tokenizer;
 
+import static de.neosearch.verweiserkennung.tokenizer.TokenTypes.SPECIALCHARS;
+import static de.neosearch.verweiserkennung.tokenizer.TokenTypes.TEXT;
+import static de.neosearch.verweiserkennung.tokenizer.TokenTypes.WHITESPACE;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import static de.neosearch.verweiserkennung.tokenizer.TokenTypes.*;
 
 public class SimpleTokenizer {
 
@@ -11,7 +13,7 @@ public class SimpleTokenizer {
 		if (text == null)
 			return new ArrayList<>();
 
-		LinkedList<Token> result = new LinkedList<>();
+		List<Token> result = new ArrayList<>();
 		String actualString = "";
 		String typeOfLastChar = null;
 
