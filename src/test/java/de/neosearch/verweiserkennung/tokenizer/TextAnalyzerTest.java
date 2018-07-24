@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import de.neosearch.verweiserkennung.TextAnalyzer;
 import de.neosearch.verweiserkennung.tokenfilter.LowercaseWhitelistFilter;
+import de.neosearch.verweiserkennung.tokenfilter.SectionFilter;
 
 public class TextAnalyzerTest {
 
@@ -17,8 +18,8 @@ public class TextAnalyzerTest {
 
 	private LowercaseWhitelistFilter lowerFilter = new LowercaseWhitelistFilter("testToken", Arrays.asList("Test A"),
 			Arrays.asList("/test"));;
-	private LowercaseWhitelistFilter sectionFilter = new LowercaseWhitelistFilter("sectionToken",
-			Arrays.asList("BGB §A"), Arrays.asList("/bgb/a"));
+	private SectionFilter sectionFilter = new SectionFilter("sectionToken", Arrays.asList("BGB §A", "516 ZPO"),
+			Arrays.asList("/bgb/a", "/zpo/516"));
 	private LowercaseWhitelistFilter aktenzeichenFilter = new LowercaseWhitelistFilter("aktenzeichen",
 			Arrays.asList("VII B 28/11"), Arrays.asList("vii-b-28/11"));
 	private TextAnalyzer textAnalyzer = TextAnalyzer.createTextAnalyzer(8).add(lowerFilter).add(sectionFilter)
