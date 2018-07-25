@@ -21,6 +21,8 @@ public class SectionFilter extends LowercaseWhitelistFilter {
 			+ "| nr \\d+" //
 			+ "| alt \\d+" //
 			+ "| buchst \\w" //
+			+ "|," //
+			+ "| \\d.+ aufl." //
 			+ "| vom \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d" //
 //			+ "|\u00A0" //  	NO-BREAK SPACE
 			+ ")");
@@ -38,8 +40,8 @@ public class SectionFilter extends LowercaseWhitelistFilter {
 	};
 
 	public static String removeAnchorInformation(String normAbkuerzung) {
-		// if (normAbkuerzung.contains("§ 547") && normAbkuerzung.contains("zpo"))
-		// System.out.println("GO2");
+//		if (normAbkuerzung.startsWith("tkg, ") && normAbkuerzung.endsWith("45i"))
+//			System.out.println("GO2");
 		// if (normAbkuerzung.equalsIgnoreCase("§ 547 Nr. 4 ZPO"))
 		// System.out.println("GO!" + normAbkuerzung);
 		return CLEAN_SECTIONS.matcher(normAbkuerzung).replaceAll("");
