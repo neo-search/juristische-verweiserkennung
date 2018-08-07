@@ -254,7 +254,7 @@ public class SpeedTest {
 			.add(sectionFilter).add(aktenzeichenFilter).build();
 
 	@Test
-	public static void testStreamSpeed() {
+	public void testStreamSpeed() {
 		System.out.println("NEW:" + "stream");
 
 		long firstCurrentTimeInMillis = System.currentTimeMillis();
@@ -339,7 +339,7 @@ public class SpeedTest {
 	}
 
 	public static void main(String[] args) {
-		testStreamSpeed();
+		new SpeedTest().testStreamSpeed();
 //		testStreamSpeed();
 	}
 
