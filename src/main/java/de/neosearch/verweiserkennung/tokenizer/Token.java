@@ -1,15 +1,18 @@
 package de.neosearch.verweiserkennung.tokenizer;
 
 public class Token implements Comparable<Token> {
-	private int begin = 0;
-	private int end = 0;
-	private String string = "";
-	private String normalizedString = "";
+	private final int begin;
+	private final int end;
+	private final String string;
+	private final String normalizedString;
 
 	private String tokenType;
 
 	protected Token() {
-
+		string = null;
+		normalizedString = null;
+		begin = 0;
+		end = 0;
 	}
 
 	public Token(int beginOfWord, int endOfWord, String string, String normalizedString) {
@@ -48,13 +51,12 @@ public class Token implements Comparable<Token> {
 		return tokenType;
 	}
 
-	public Token withTokenType(String tokenType) {
-		this.tokenType = tokenType;
-		return this;
+	public boolean isWhitespace() {
+		return TokenTypes.WHITESPACE.equals(tokenType);
 	}
 
-	public Token withNormalizedString(String normalizedString) {
-		this.normalizedString = normalizedString;
+	public Token withTokenType(String tokenType) {
+		this.tokenType = tokenType;
 		return this;
 	}
 

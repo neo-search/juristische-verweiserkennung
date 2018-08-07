@@ -16,7 +16,7 @@ public class SpeedTest {
 	}
 	// 5.5s, 4.8s
 
-	private final static StringBuffer TEXT = new StringBuffer(
+	private final static StringBuffer TEXT_1 = new StringBuffer(
 			"<div class=\"container\"><h3 style=\"text-align:center;font-size:1rem\" class=\"jsx-4127630647\">Bundesarbeitsgerichts</h3><p style=\"font-size:0.9rem;font-weight:300;text-align:center;padding-top:0\" class=\"jsx-4127630647\">Entscheidungsdatum:<!-- --> <b style=\"font-weight:600\" class=\"jsx-4127630647\">28.02.2018</b></p><hr class=\"jsx-4127630647\"><h1 style=\"font-size:1.3rem;font-weight:bold;padding-bottom:50px;text-align:center\" class=\"jsx-4127630647\">BAG<!-- --> <!-- -->28.02.2018<!-- --> - <!-- -->4 AZR 816/16</h1><h2 style=\"font-size:1rem;padding-bottom:10px;padding-top:0\">Eingruppierung - Geschäftsstellenverwalterin - Bundesgericht</h2><hr style=\"margin-bottom:50px\"><dl class=\"jsx-4127630647\"><dt>Gericht: </dt><dd><strong>Bundesarbeitsgerichts</strong></dd><dt>Entscheidungsdatum: </dt><dd><strong>28.02.2018</strong></dd><dt>Aktenzeichen: </dt><dd><strong>4 AZR 816/16</strong></dd><dt>ECLI: </dt><dd><strong>ECLI:DE:BAG:2018:280218.U.4AZR816.16.0</strong></dd><dt>Dokumenttyp: </dt><dd><strong>Urteil</strong></dd><dt>Vorinstanz: </dt><dd>vorgehend ArbG Leipzig, 24. März 2016, Az: 5 Ca 4247/15, Urteilvorgehend Sächsisches Landesarbeitsgericht, 2. November 2016, Az: 3 Sa 213/16, Urteil\n"
 					+ "   <!-- --> </dd></dl><hr style=\"margin-bottom:40px\" class=\"jsx-4127630647\"><h3 style=\"font-size:1.2rem\">Leitsätze</h3><div>\n"
 					+ "      <div>\n" + "         <dl class=\"RspDL\">\n" + "            <dt></dt>\n"
@@ -240,58 +240,107 @@ public class SpeedTest {
 					+ "               <p></p>\n" + "            </dd>\n" + "         </dl>\n" + "      </div>\n"
 					+ "   </div></div>");
 
-	private LowercaseWhitelistFilter lowerFilter = new LowercaseWhitelistFilter("testToken", Arrays.asList("Test A"),
-			Arrays.asList("/test"));;
-	private LowercaseWhitelistFilter sectionFilter = new LowercaseWhitelistFilter("sectionToken",
+	private final static StringBuffer TEXT = TEXT_1.append(TEXT_1).append(TEXT_1).append(TEXT_1);
+//	private final static StringBuffer TEXT = TEXT_1;
+	private static LowercaseWhitelistFilter lowerFilter = new LowercaseWhitelistFilter("testToken",
+			Arrays.asList("Test A"), Arrays.asList("/test"));;
+	private static LowercaseWhitelistFilter sectionFilter = new LowercaseWhitelistFilter("sectionToken",
 			Arrays.asList("BGB §A"), Arrays.asList("/bgb/a"));
-	private LowercaseWhitelistFilter aktenzeichenFilter = new LowercaseWhitelistFilter("aktenzeichen",
+	private static LowercaseWhitelistFilter aktenzeichenFilter = new LowercaseWhitelistFilter("aktenzeichen",
 			Arrays.asList("VII B 28/11"), Arrays.asList("vii-b-28/11"));
-	private TextAnalyzer textAnalyzer = TextAnalyzer.createTextAnalyzer(30).add(lowerFilter).add(sectionFilter)
+	private static TextAnalyzer textAnalyzer = TextAnalyzer.createTextAnalyzer(25).add(lowerFilter).add(sectionFilter)
 			.add(aktenzeichenFilter).build();
+	private static TextAnalyzer textAnalyzerNew = TextAnalyzer.createTextAnalyzer(12).add(lowerFilter)
+			.add(sectionFilter).add(aktenzeichenFilter).build();
 
 	@Test
-	public void testStreamSpeed() {
-		System.out.println("stream");
+	public static void testStreamSpeed() {
+		System.out.println("NEW:" + "stream");
 
+		long firstCurrentTimeInMillis = System.currentTimeMillis();
 		long currentTimeMillis = System.currentTimeMillis();
-		List<Token> tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		List<Token> tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
 		currentTimeMillis = System.currentTimeMillis();
-		tokens = textAnalyzer.analyze(TEXT.toString()).getTokens();
-		System.out.println(System.currentTimeMillis() - currentTimeMillis);
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		currentTimeMillis = System.currentTimeMillis();
+		tokens = textAnalyzerNew.analyze(TEXT.toString()).getTokens();
+
+		System.out.println("NEW:" + (System.currentTimeMillis() - currentTimeMillis));
+		System.out.println("NEW result:" + (System.currentTimeMillis() - firstCurrentTimeInMillis));
+		System.out.println(tokens.size());
+	}
+
+	public static void main(String[] args) {
+		testStreamSpeed();
+//		testStreamSpeed();
 	}
 
 }

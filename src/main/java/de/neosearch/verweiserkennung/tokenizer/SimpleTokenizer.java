@@ -14,72 +14,75 @@ public class SimpleTokenizer {
 			return new ArrayList<>();
 
 		List<Token> result = new ArrayList<>();
-		String actualString = "";
-		String normalizedString = "";
+		StringBuilder actualString = new StringBuilder();
+		StringBuilder normalizedString = new StringBuilder();
 		String typeOfLastChar = null;
 
 		for (int i = 0, n = text.length(); i < n; i++) {
 			char c = text.charAt(i);
 			if (typeOfLastChar == null) {
-				actualString = Character.toString(c);
-				normalizedString = Character.toString(normalizeChar(c));
+				actualString.append(c);
+				normalizedString.append(normalizeChar(c));
 				typeOfLastChar = isWhitespace(c) ? WHITESPACE : isTokenChar(c) ? TEXT : SPECIALCHARS;
 
-			} else if (isWhitespace(c) || '\u00A0' == c) {
+			} else if (isWhitespace(c)) {
 				if (!typeOfLastChar.equals(WHITESPACE)) {
 					int beginOfWord = i - actualString.length();
-					result.add(new Token(beginOfWord, i, actualString, normalizedString, typeOfLastChar));
+					result.add(newToken(beginOfWord, i, actualString, normalizedString, typeOfLastChar));
 					typeOfLastChar = WHITESPACE;
-					actualString = Character.toString(c);
-					normalizedString = Character.toString(normalizeChar(c));
+					actualString = new StringBuilder(Character.toString(c));
+					normalizedString = new StringBuilder(Character.toString(normalizeChar(c)));
 				} else {
-					typeOfLastChar = WHITESPACE;
-					actualString += c;
-					normalizedString += normalizeChar(c);
+					actualString.append(c);
+					normalizedString.append(c);
 				}
-			} else if (Character.isLetterOrDigit(c) || c == '§' || c == '/') {
+			} else if (isTokenChar(c)) {
 				if (!typeOfLastChar.equals(TEXT)) {
 					int beginOfWord = i - actualString.length();
-					result.add(new Token(beginOfWord, i, actualString, normalizedString, typeOfLastChar));
+					result.add(newToken(beginOfWord, i, actualString, normalizedString, typeOfLastChar));
 					typeOfLastChar = TEXT;
-					actualString = Character.toString(c);
-					normalizedString = Character.toString(normalizeChar(c));
+					actualString = new StringBuilder(Character.toString(c));
+					normalizedString = new StringBuilder(Character.toString(normalizeChar(c)));
 				} else {
-					typeOfLastChar = TEXT;
-					actualString += c;
-					normalizedString += normalizeChar(c);
+					actualString.append(c);
+					normalizedString.append(normalizeChar(c));
 				}
 			} else {
 				if (!typeOfLastChar.equals(SPECIALCHARS)) {
 					int beginOfWord = i - actualString.length();
-					result.add(new Token(beginOfWord, i, actualString, normalizedString, typeOfLastChar));
+					result.add(newToken(beginOfWord, i, actualString, normalizedString, typeOfLastChar));
 					typeOfLastChar = SPECIALCHARS;
-					actualString = Character.toString(c);
-					normalizedString = Character.toString(normalizeChar(c));
+					actualString = new StringBuilder(Character.toString(c));
+					normalizedString = new StringBuilder(Character.toString(normalizeChar(c)));
 				} else {
-					typeOfLastChar = SPECIALCHARS;
-					actualString += c;
-					normalizedString += normalizeChar(c);
+//					typeOfLastChar = SPECIALCHARS;
+					actualString.append(c);
+					normalizedString.append(normalizeChar(c));
 				}
 			}
 		}
 
-		if (!actualString.isEmpty()) {
+		if (actualString.length() > 0) {
 			int beginOfWord = text.length() - actualString.length();
-			result.add(new Token(beginOfWord, text.length(), actualString, normalizedString, typeOfLastChar));
+			result.add(newToken(beginOfWord, text.length(), actualString, normalizedString, typeOfLastChar));
 		}
 
 		return result;
 	}
 
+	private Token newToken(int beginOfWord, int i, StringBuilder actualString, StringBuilder normalizedString,
+			String typeOfLastChar) {
+		if (TokenTypes.WHITESPACE.equals(typeOfLastChar))
+			return new Token(beginOfWord, i, actualString.toString(), " ", typeOfLastChar);
+		return new Token(beginOfWord, i, actualString.toString(), normalizedString.toString(), typeOfLastChar);
+	}
+
 	private char normalizeChar(char ch) {
-		if (ch == '\u00A0')
-			return ' ';
 		return Character.toLowerCase(ch);
 	}
 
 	private boolean isWhitespace(char c) {
-		return Character.isWhitespace(c);
+		return Character.isWhitespace(c) || '\u00A0' == c;
 	}
 
 	private boolean isTokenChar(char c) {

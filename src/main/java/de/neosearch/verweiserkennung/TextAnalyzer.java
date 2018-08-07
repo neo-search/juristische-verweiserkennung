@@ -48,20 +48,22 @@ public class TextAnalyzer {
 	}
 
 	public AnalyzedText analyze(String query) {
-		return analyze(query, maxWindowSize);
+		return analyzeNew(query, maxWindowSize);
 	}
 
-	private AnalyzedText analyze(String text, int windowSize) {
+	private AnalyzedText analyzeNew(String text, int windowSize) {
 
 		List<Token> tokens = new SimpleTokenizer().tokenize(text);
 		ShingleTokenizer shingleTokenizer = new ShingleTokenizer(tokens, windowSize);
 		List<Token> result = new ArrayList<>();
-		while (shingleTokenizer.hasMoreShingles()) {
-			Shingle moreShingle = shingleTokenizer.moreShingle();
+		Shingle moreShingle;
+		while ((moreShingle = shingleTokenizer.moreShingle()) != null) {
+//			ShingleNew moreShingle = shingleTokenizer.moreShingle();
 
 			boolean foundToken = false;
-			while (moreShingle.hasMoreTokens()) {
-				Token token = moreShingle.moreToken();
+			Token token;
+			while ((token = moreShingle.moreToken()) != null) {
+//				Token token = moreShingle.moreToken();
 				for (WhitelistFilter filter : whitelistFilters) {
 					Token filteredToken;
 					if ((filteredToken = filter.accept(token)) != null) {
@@ -76,18 +78,18 @@ public class TextAnalyzer {
 			}
 
 			if (foundToken == false) {
-				Token token = moreShingle.getUniGram();
+				Token unigram = moreShingle.getUniGram();
 				for (WhitelistFilter filter : whitelistFilters) {
 					Token filteredToken;
-					if ((filteredToken = filter.accept(token)) != null) {
+					if ((filteredToken = filter.accept(unigram)) != null) {
 						result.add(filteredToken);
 						foundToken = true;
 					}
 				}
 			}
 
-			if (foundToken == false)
-				result.add(moreShingle.getUniGram());
+//			if (foundToken == false)
+//				result.add(moreShingle.getUniGram());
 
 		}
 		return new AnalyzedText(result);
