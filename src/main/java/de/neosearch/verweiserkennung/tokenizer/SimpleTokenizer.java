@@ -73,8 +73,8 @@ public class SimpleTokenizer {
 	private Token newToken(int beginOfWord, int i, StringBuilder actualString, StringBuilder normalizedString,
 			String typeOfLastChar) {
 		if (TokenTypes.WHITESPACE.equals(typeOfLastChar))
-			return new Token(beginOfWord, i, actualString.toString(), " ", typeOfLastChar);
-		return new Token(beginOfWord, i, actualString.toString(), normalizedString.toString(), typeOfLastChar);
+			return new Token(beginOfWord, i, " ", typeOfLastChar);
+		return new Token(beginOfWord, i, normalizedString.toString(), typeOfLastChar);
 	}
 
 	private char normalizeChar(char ch) {

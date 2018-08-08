@@ -15,12 +15,12 @@ public class SimpleTokenizerTest {
 	public void testTokenizer() {
 		SimpleTokenizer tokenizer = new SimpleTokenizer();
 		List<Token> tokens = tokenizer.tokenize("Test,  test 2");
-		assertEquals(new Token(0, 4, "Test", "test", TokenTypes.TEXT), tokens.get(0));
-		assertEquals(new Token(4, 5, ",", ",", TokenTypes.SPECIALCHARS), tokens.get(1));
-		assertEquals(new Token(5, 7, "  ", "  ", TokenTypes.WHITESPACE), tokens.get(2));
-		assertEquals(new Token(7, 11, "test", "test", TokenTypes.TEXT), tokens.get(3));
-		assertEquals(new Token(11, 12, " ", " ", TokenTypes.WHITESPACE), tokens.get(4));
-		assertEquals(new Token(12, 13, "2", "2", TokenTypes.TEXT), tokens.get(5));
+		assertEquals(new Token(0, 4, "test", TokenTypes.TEXT), tokens.get(0));
+		assertEquals(new Token(4, 5, ",", TokenTypes.SPECIALCHARS), tokens.get(1));
+		assertEquals(new Token(5, 7, "  ", TokenTypes.WHITESPACE), tokens.get(2));
+		assertEquals(new Token(7, 11, "test", TokenTypes.TEXT), tokens.get(3));
+		assertEquals(new Token(11, 12, " ", TokenTypes.WHITESPACE), tokens.get(4));
+		assertEquals(new Token(12, 13, "2", TokenTypes.TEXT), tokens.get(5));
 	}
 
 	@Test

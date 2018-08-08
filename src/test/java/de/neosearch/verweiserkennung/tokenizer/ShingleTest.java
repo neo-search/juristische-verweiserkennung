@@ -10,11 +10,11 @@ import org.junit.Test;
 
 public class ShingleTest {
 
-	Token token1 = new Token(0, 6, "Token1", "token1", TokenTypes.TEXT);
-	Token token2 = new Token(6, 8, "  ", " ", TokenTypes.WHITESPACE);
-	Token token3 = new Token(8, 9, "/", "/", TokenTypes.SPECIALCHARS);
-	Token token4 = new Token(9, 10, " ", " ", TokenTypes.WHITESPACE);
-	Token token5 = new Token(10, 14, "ende", "ende", TokenTypes.TEXT);
+	Token token1 = new Token(0, 6, "token1", TokenTypes.TEXT);
+	Token token2 = new Token(6, 8, " ", TokenTypes.WHITESPACE);
+	Token token3 = new Token(8, 9, "/", TokenTypes.SPECIALCHARS);
+	Token token4 = new Token(9, 10, " ", TokenTypes.WHITESPACE);
+	Token token5 = new Token(10, 14, "ende", TokenTypes.TEXT);
 
 	Shingle shingle = new Shingle(Arrays.asList(token1, token2, token3, token4, token5));
 

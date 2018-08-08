@@ -39,15 +39,15 @@ public class Shingle {
 		int end = tokens.get(index - amountOfTokensToStep).getEnd();
 		List<Token> subList = tokens.subList(0, index - amountOfTokensToStep + 1);
 
-		StringBuilder stringBuilder = new StringBuilder();
+//		StringBuilder stringBuilder = new StringBuilder();
 		StringBuilder normalizeStringBuilder = new StringBuilder();
 		for (Token token : subList) {
-			stringBuilder.append(token.getString());
+//			stringBuilder.append(token.getString());
 			normalizeStringBuilder.append(token.getNormalizedString());
 		}
 
 		index = index - amountOfTokensToStep;
-		return new Token(begin, end, stringBuilder.toString(), normalizeStringBuilder.toString());
+		return new Token(begin, end, normalizeStringBuilder.toString());
 	}
 
 	private boolean currentTokenIsWhitespace() {

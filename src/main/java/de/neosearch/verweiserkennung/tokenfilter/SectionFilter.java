@@ -6,14 +6,6 @@ import java.util.regex.Pattern;
 import de.neosearch.verweiserkennung.tokenizer.Token;
 
 public class SectionFilter extends LowercaseWhitelistFilter {
-	// private static final String CLEAN_SECTIONS = "( abs\\. \\d+"//
-	// + "\\| satz \\d+" //
-	// + "\\| s \\d+"//
-	// + "\\| nr \\d+" //
-	// + "\\| nr\\. \\d+"//
-	// + "\\| alt \\d+" //
-	// + "\\|  buchst \\w" //
-	// + "|  vom \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d)";
 	private static final Pattern CLEAN_SECTIONS = Pattern.compile("( abs\\. \\d+"//
 			+ "| nr. \\d+" //
 			+ "| satz \\d+" //
@@ -24,7 +16,6 @@ public class SectionFilter extends LowercaseWhitelistFilter {
 			+ "|," //
 			+ "| \\d.+ aufl." //
 			+ "| vom \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d" //
-//			+ "|\u00A0" //  	NO-BREAK SPACE
 			+ ")");
 
 	public SectionFilter(String tokenType, List<String> token, List<String> normalizedToken) {
@@ -34,8 +25,7 @@ public class SectionFilter extends LowercaseWhitelistFilter {
 	public Token accept(Token token) {
 		String tokenString = removeAnchorInformation(token.getNormalizedString());
 		if (whitelistContains(tokenString))
-			return new Token(token.getBegin(), token.getEnd(), token.getString(), getNormalized(tokenString),
-					this.tokenType);
+			return new Token(token.getBegin(), token.getEnd(), getNormalized(tokenString), this.tokenType);
 		return null;
 	};
 

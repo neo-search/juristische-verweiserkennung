@@ -3,27 +3,27 @@ package de.neosearch.verweiserkennung.tokenizer;
 public class Token implements Comparable<Token> {
 	private final int begin;
 	private final int end;
-	private final String string;
+//	private final String string;
 	private final String normalizedString;
 
 	private String tokenType;
 
 	protected Token() {
-		string = null;
+//		string = null;
 		normalizedString = null;
 		begin = 0;
 		end = 0;
 	}
 
-	public Token(int beginOfWord, int endOfWord, String string, String normalizedString) {
+	public Token(int beginOfWord, int endOfWord, String normalizedString) {
 		this.begin = beginOfWord;
 		this.end = endOfWord;
-		this.string = string;
+//		this.string = string;
 		this.normalizedString = normalizedString;
 	}
 
-	public Token(int beginOfWord, int endOfWord, String actualString, String normalizedString, String tokenType) {
-		this(beginOfWord, endOfWord, actualString, normalizedString);
+	public Token(int beginOfWord, int endOfWord, String normalizedString, String tokenType) {
+		this(beginOfWord, endOfWord, normalizedString);
 		this.tokenType = tokenType;
 	}
 
@@ -39,9 +39,9 @@ public class Token implements Comparable<Token> {
 		return end;
 	}
 
-	public String getString() {
-		return string;
-	}
+//	public String getString() {
+//		return string;
+//	}
 
 	public String getNormalizedString() {
 		return normalizedString;
@@ -62,7 +62,7 @@ public class Token implements Comparable<Token> {
 
 	@Override
 	public String toString() {
-		return "'" + string + ":" + normalizedString + "' (" + begin + ", " + end + ", " + tokenType + ")";
+		return "'" + normalizedString + "' (" + begin + ", " + end + ", " + tokenType + ")";
 	}
 
 	@Override
@@ -76,7 +76,8 @@ public class Token implements Comparable<Token> {
 		int result = 1;
 		result = prime * result + begin;
 		result = prime * result + end;
-		result = prime * result + ((string == null) ? 0 : string.hashCode());
+		result = prime * result + ((normalizedString == null) ? 0 : normalizedString.hashCode());
+		result = prime * result + ((tokenType == null) ? 0 : tokenType.hashCode());
 		return result;
 	}
 
@@ -93,10 +94,15 @@ public class Token implements Comparable<Token> {
 			return false;
 		if (end != other.end)
 			return false;
-		if (string == null) {
-			if (other.string != null)
+		if (normalizedString == null) {
+			if (other.normalizedString != null)
 				return false;
-		} else if (!string.equals(other.string))
+		} else if (!normalizedString.equals(other.normalizedString))
+			return false;
+		if (tokenType == null) {
+			if (other.tokenType != null)
+				return false;
+		} else if (!tokenType.equals(other.tokenType))
 			return false;
 		return true;
 	}

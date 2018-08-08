@@ -41,8 +41,7 @@ public class LowercaseWhitelistFilter extends WhitelistFilter {
 
 	public Token accept(Token token) {
 		if (whitelistContains(token.getNormalizedString()))
-			return new Token(token.getBegin(), token.getEnd(), token.getString(),
-					getNormalized(token.getNormalizedString()), tokenType);
+			return new Token(token.getBegin(), token.getEnd(), getNormalized(token.getNormalizedString()), tokenType);
 		return null;
 	};
 
