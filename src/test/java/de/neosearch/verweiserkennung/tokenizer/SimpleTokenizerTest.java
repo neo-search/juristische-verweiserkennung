@@ -40,7 +40,7 @@ public class SimpleTokenizerTest {
 		assertTrue(shingleTokenizer.hasMoreShingles());
 		shingle = shingleTokenizer.moreShingle();
 		assertTrue(shingle.hasMoreTokens());
-		assertEquals(new Token(5, 8, " ta,"), shingle.moreToken());
+		assertEquals(new Token(5, 8, "ta,"), shingle.moreToken());
 		assertFalse(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), null);
 		assertEquals(new Token(5, 7, "ta", TokenTypes.TEXT), shingle.getUniGram());
@@ -51,7 +51,7 @@ public class SimpleTokenizerTest {
 //		assertEquals(shingle.moreToken(), new Token(5, 8, ",", ","));
 		assertFalse(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), null);
-		assertEquals(new Token(7, 8, ",", TokenTypes.TEXT), shingle.getUniGram());
+		assertEquals(new Token(7, 8, ",", TokenTypes.SPECIALCHARS), shingle.getUniGram());
 
 //		assertTrue(shingleTokenizer.hasMoreShingles());
 //		shingle = shingleTokenizer.moreShingle();
