@@ -21,12 +21,12 @@ public class ShingleTest {
 	@Test
 	public void testShingle() {
 		assertTrue(shingle.hasMoreTokens());
-		assertEquals(new Token(0, 14, "Token1  / ende", "token1 / ende"), shingle.moreToken());
+		assertEquals(new Token(0, 14, "token1 / ende"), shingle.moreToken());
 		assertTrue(shingle.hasMoreTokens());
-		assertEquals(new Token(0, 9, "Token1  /", "token1 /"), shingle.moreToken());
+		assertEquals(new Token(0, 9, "token1 /"), shingle.moreToken());
 		assertFalse(shingle.hasMoreTokens());
 		assertEquals(null, shingle.moreToken());
-		assertEquals(new Token(0, 6, "Token1", "token1"), shingle.getUniGram());
+		assertEquals(new Token(0, 6, "token1", TokenTypes.TEXT), shingle.getUniGram());
 	}
 
 }

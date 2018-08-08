@@ -28,10 +28,8 @@ public class TextAnalyzerTest {
 	@Test
 	public void testTextAnalyse() {
 		List<Token> tokens = textAnalyzer.analyze("Test a a").getTokens();
-		assertEquals(tokens.size(), 3);
+		assertEquals(tokens.size(), 1);
 		assertEquals(new Token(0, 6, "/test", "testToken"), tokens.get(0));
-		assertEquals(new Token(6, 7, " ", "whitespace"), tokens.get(1));
-		assertEquals(new Token(7, 8, "a", "text"), tokens.get(2));
 	}
 
 	@Test
@@ -46,9 +44,8 @@ public class TextAnalyzerTest {
 	public void testOnlyTwoTokens() {
 		List<Token> tokens = textAnalyzer.analyze("VII B 28/11 ").getTokens();
 		System.out.println(tokens);
-		assertEquals(2, tokens.size());
+		assertEquals(1, tokens.size());
 		assertEquals(new Token(0, 11, "vii-b-28/11", "aktenzeichen"), tokens.get(0));
-		assertEquals(new Token(11, 12, " ", "whitespace"), tokens.get(1));
 	}
 
 }

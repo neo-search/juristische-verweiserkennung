@@ -22,7 +22,7 @@ public class SectionFilter extends LowercaseWhitelistFilter {
 		super(tokenType, token, normalizedToken);
 	}
 
-	public Token accept(Token token) {
+	public Token acceptImpl(Token token) {
 		String tokenString = removeAnchorInformation(token.getNormalizedString());
 		if (whitelistContains(tokenString))
 			return new Token(token.getBegin(), token.getEnd(), getNormalized(tokenString), this.tokenType);

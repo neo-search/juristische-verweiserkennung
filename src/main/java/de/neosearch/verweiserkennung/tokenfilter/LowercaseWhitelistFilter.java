@@ -39,10 +39,17 @@ public class LowercaseWhitelistFilter extends WhitelistFilter {
 		return super.getNormalized(token.toLowerCase());
 	}
 
-	public Token accept(Token token) {
+	public Token acceptImpl(Token token) {
 		if (whitelistContains(token.getNormalizedString()))
 			return new Token(token.getBegin(), token.getEnd(), getNormalized(token.getNormalizedString()), tokenType);
 		return null;
 	};
-
+	
+//	public Token acceptImpl(Token token) {
+//		String value = getNormalized(token.getNormalizedString());
+//
+//		if (value != null)
+//			return new Token(token.getBegin(), token.getEnd(), value, tokenType);
+//		return null;
+//	};
 }

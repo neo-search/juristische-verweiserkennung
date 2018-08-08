@@ -17,7 +17,7 @@ public class SimpleTokenizerTest {
 		List<Token> tokens = tokenizer.tokenize("Test,  test 2");
 		assertEquals(new Token(0, 4, "test", TokenTypes.TEXT), tokens.get(0));
 		assertEquals(new Token(4, 5, ",", TokenTypes.SPECIALCHARS), tokens.get(1));
-		assertEquals(new Token(5, 7, "  ", TokenTypes.WHITESPACE), tokens.get(2));
+		assertEquals(new Token(5, 7, " ", TokenTypes.WHITESPACE), tokens.get(2));
 		assertEquals(new Token(7, 11, "test", TokenTypes.TEXT), tokens.get(3));
 		assertEquals(new Token(11, 12, " ", TokenTypes.WHITESPACE), tokens.get(4));
 		assertEquals(new Token(12, 13, "2", TokenTypes.TEXT), tokens.get(5));
@@ -32,18 +32,18 @@ public class SimpleTokenizerTest {
 		assertTrue(shingleTokenizer.hasMoreShingles());
 		Shingle shingle = shingleTokenizer.moreShingle();
 		assertTrue(shingle.hasMoreTokens());
-		assertEquals(new Token(0, 7, "Test ta", "test ta"), shingle.moreToken());
+		assertEquals(new Token(0, 7, "test ta"), shingle.moreToken());
 		assertFalse(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), null);
-		assertEquals(new Token(0, 4, "Test", "test"), shingle.getUniGram());
+		assertEquals(new Token(0, 4, "test", TokenTypes.TEXT), shingle.getUniGram());
 
 		assertTrue(shingleTokenizer.hasMoreShingles());
 		shingle = shingleTokenizer.moreShingle();
 		assertTrue(shingle.hasMoreTokens());
-		assertEquals(new Token(5, 8, "ta,", " ta,"), shingle.moreToken());
+		assertEquals(new Token(5, 8, " ta,"), shingle.moreToken());
 		assertFalse(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), null);
-		assertEquals(new Token(5, 7, "ta", "ta"), shingle.getUniGram());
+		assertEquals(new Token(5, 7, "ta", TokenTypes.TEXT), shingle.getUniGram());
 
 		assertTrue(shingleTokenizer.hasMoreShingles());
 		shingle = shingleTokenizer.moreShingle();
@@ -51,7 +51,7 @@ public class SimpleTokenizerTest {
 //		assertEquals(shingle.moreToken(), new Token(5, 8, ",", ","));
 		assertFalse(shingle.hasMoreTokens());
 		assertEquals(shingle.moreToken(), null);
-		assertEquals(new Token(7, 8, ",", ","), shingle.getUniGram());
+		assertEquals(new Token(7, 8, ",", TokenTypes.TEXT), shingle.getUniGram());
 
 //		assertTrue(shingleTokenizer.hasMoreShingles());
 //		shingle = shingleTokenizer.moreShingle();
