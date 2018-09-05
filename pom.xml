@@ -6,12 +6,12 @@
 
 	<groupId>de.neosearch</groupId>
 	<artifactId>juristische-verweiserkennung</artifactId>
-	<version>0.0.1</version>
+	<version>0.2.0</version>
 	<packaging>jar</packaging>
 
 	<name>Juristische Verweiserkennung</name>
 	<description>Die juristische automatische Verweiserkennung und Verlinkung erkennt Querverweise zu Rechtsprechung-Dokumente und Gesetze.</description>
-
+	<url>https://github.com/neo-search/juristische-verweiserkennung</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,6 +22,22 @@
 		<!-- <junit.platform.version>1.2.0</junit.platform.version> -->
 	</properties>
 
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Daniel Beck</name>
+			<email>daniel {remove me} DOT beck AT neosearch.de</email>
+			<organization>neoSearch UG (haftungsbeschränkt)</organization>
+			<organizationUrl>https://neosearch.de</organizationUrl>
+		</developer>
+	</developers>
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
@@ -58,6 +74,31 @@
 				<!-- <version>${junit.platform.version}</version> -->
 				<!-- </dependency> -->
 				<!-- </dependencies> -->
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
