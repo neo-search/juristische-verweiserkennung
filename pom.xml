@@ -13,6 +13,10 @@
 	<description>Die juristische automatische Verweiserkennung und Verlinkung erkennt Querverweise zu Rechtsprechung-Dokumente und Gesetze.</description>
 	<url>https://github.com/neo-search/juristische-verweiserkennung</url>
 
+	<scm>
+		<url>https://github.com/neo-search/juristische-verweiserkennung</url>
+	</scm>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -37,7 +41,7 @@
 			<organizationUrl>https://neosearch.de</organizationUrl>
 		</developer>
 	</developers>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
@@ -67,13 +71,32 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.0</version>
-				<!-- <dependencies> -->
-				<!-- <dependency> -->
-				<!-- <groupId>org.junit.platform</groupId> -->
-				<!-- <artifactId>junit-platform-surefire-provider</artifactId> -->
-				<!-- <version>${junit.platform.version}</version> -->
-				<!-- </dependency> -->
-				<!-- </dependencies> -->
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
