@@ -1,7 +1,6 @@
 package de.neosearch.verweiserkennung.tokenizer;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Shingle {
 	private int index = 0;
