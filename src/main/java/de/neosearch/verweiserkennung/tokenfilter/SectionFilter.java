@@ -12,6 +12,7 @@ public class SectionFilter extends LowercaseWhitelistFilter {
 			+ "| s \\d+"//
 			+ "| nr \\d+" //
 			+ "| alt \\d+" //
+			+ "| fall \\d+" //
 			+ "| buchst \\w" //
 			+ "|," //
 			+ "| \\d.+ aufl." //
@@ -30,24 +31,12 @@ public class SectionFilter extends LowercaseWhitelistFilter {
 	};
 
 	public static String removeAnchorInformation(String normAbkuerzung) {
-//		if (normAbkuerzung.startsWith("tkg, ") && normAbkuerzung.endsWith("45i"))
-//			System.out.println("GO2");
-		// if (normAbkuerzung.equalsIgnoreCase("§ 547 Nr. 4 ZPO"))
-		// System.out.println("GO!" + normAbkuerzung);
 		return CLEAN_SECTIONS.matcher(normAbkuerzung).replaceAll("");
-		// return normAbkuerzung //
-		// .replaceAll(" abs\\. \\d+", "")//
-		// .replaceAll(" satz \\d+", "")//
-		// .replaceAll(" s \\d+", "")//
-		// .replaceAll(" nr \\d+", "")//
-		// .replaceAll(" nr\\. \\d+", "")//
-		// .replaceAll(" alt \\d+", "")//
-		// .replaceAll(" buchst \\w", "")//
-		// .replaceAll(" vom \\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", "");
 	}
 
 	public static void main(String[] args) {
-		String trs = "entsprechender anwendung von § 547 nr. 4 zpo";
+//		String trs = "entsprechender anwendung von § 547 nr. 4 zpo";
+//		String bla ="Die Rechtsbeschwerde an das Bundesarbeitsgericht findet gemäß § 78 Satz 1 ArbGG, § 574 Abs. 1 Satz 1 ZPO nur statt, wenn dies im Gesetz ausdrücklich bestimmt ist (Nr. 1) oder das Beschwerdegericht sie in dem Beschluss ";
 
 		// String replaceAll = trs.replaceAll(CLEAN_SECTIONS, "");
 		// System.out.println(replaceAll);
